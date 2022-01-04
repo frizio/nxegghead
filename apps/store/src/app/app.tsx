@@ -6,9 +6,6 @@ import { Route, Link } from 'react-router-dom';
 export function App() {
   return (
     <>
-      <NxWelcome title="store" />
-      <div />
-
       {/* START: routes */}
       {/* These routes and navigation have been generated for you */}
       {/* Feel free to move and update them to fit your needs */}
