@@ -42,7 +42,8 @@
       "options": {
         "buildTarget": "store:build",
         "hmr": true,
-        "port": 4201
+        "port": 4201,
+        "proxyConfig": "apps/store/proxy.conf.json"
       },
       "configurations": {
         "production": {
