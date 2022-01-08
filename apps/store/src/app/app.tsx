@@ -5,8 +5,8 @@ import './app.scss';
 
 import { getAllGames } from '../fake-api';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Header } from '@nxegghead/store/ui-shared';
+import { formatRating } from '@nxegghead/store/util-formatters';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -41,7 +41,7 @@ export const App = () => {
                     component="p"
                     className="game-rating"
                   >
-                    <strong>Rating:</strong> {x.rating}
+                    <strong>Rating:</strong> {formatRating(x.rating)}
                   </Typography>
                 </CardContent>
               </CardActionArea>
