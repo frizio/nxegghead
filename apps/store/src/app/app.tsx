@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 //import styles from './app.module.scss';
 import './app.scss';
-
-import { getAllGames } from '../fake-api';
 
 import { Header } from '@nxegghead/store/ui-shared';
 import { formatRating } from '@nxegghead/store/util-formatters';
@@ -19,13 +17,49 @@ import { Route, useHistory } from 'react-router-dom';
 
 
 export const App = () => {
+
   const history = useHistory();
+
+  const [state, setState] = useState<{
+    data: any[];
+    loadingState: 'success' | 'error' | 'loading';
+  }>({
+    data: [],
+    loadingState: 'success',
+  });
+
+  useEffect(() => {
+    setState({
+      ...state,
+      loadingState: 'loading',
+    });
+    fetch('/api/games')
+      .then((x) => x.json())
+      .then((res) => {
+        setState({
+          ...state,
+          data: res,
+          loadingState: 'success',
+        });
+      })
+      .catch((err) => {
+        setState({
+          ...state,
+          loadingState: 'error',
+        });
+      });
+  }, []);
+
   return (
     <>
       <Header />
       <div className="container">
         <div className="games-layout">
-          {getAllGames().map((x) => (
+          {state.loadingState === 'loading'
+            ? 'Loading...'
+            : state.loadingState === 'error'
+            ? '<div>Error retrieving data</div>'
+            : state.data.map((x) => (
             <Card
               key={x.id}
               className="game-card"
